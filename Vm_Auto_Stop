@@ -1,0 +1,24 @@
+try
+    {
+        Connect-AzAccount -Identity -AccountId 61e16a45-bf33-4cbe-a52b-6ccb0d3ac406
+    }
+     catch 
+    {
+        
+            Write-Error -Message $_.Exception
+            throw $_.Exception
+    }
+
+$subscriptionId = "83ec41ad-bbfd-4c5e-ac84-a152243ea8af"
+
+Select-AzSubscription -Subscription $subscriptionId
+
+$rg = "mlresource"
+$vms = "vm1"
+
+
+foreach ($vm in $vms)
+{
+    Write-output "stoping Up VM "$vm""
+    Stop-AzVM -ResourceGroupName $rg -Name $vm -Force
+}
